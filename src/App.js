@@ -12,7 +12,11 @@ export default class App extends Component {
     sec: 0,
     toChange:'',
     disabled: true,
+    restart:0,
   }
+
+  interval = null;
+  timeout = null;
 
   refreshCount = (button, value) => {
     return button === 'addCounter' ? value + 1 : value - 1 
@@ -35,6 +39,7 @@ export default class App extends Component {
   totalTimer = () => {
     const { hour, min, sec } = this.state
     const timeInMiliseconds = (hour*3600000)+(min*60000)+(sec*1000)
+    this.setState({restart: timeInMiliseconds})
     return timeInMiliseconds;
   }
 
@@ -44,10 +49,32 @@ export default class App extends Component {
       sec: sec === 0 ? 59 : sec - 1
     }))
 
-  startCounter = () => {
-    const timeInMiliseconds = this.totalTimer();
-    const interval = setInterval(this.updateTimer, 1000);
-    setTimeout(() => clearInterval(interval), timeInMiliseconds)
+  startCounter = (totalTimer) => {
+    // const timeInMiliseconds = this.totalTimer();
+    this.interval = setInterval(this.updateTimer, 1000);
+    this.timeOut = setTimeout(() => {
+      clearInterval(this.interval);
+      alert('Acabou o tempo!')
+    }, totalTimer)
+  }
+
+  pauseTimer = () => {
+    clearInterval(this.interval);
+    clearTimeout(this.timeOut);
+  }
+
+  restartTimer = () => {
+    const { restart } = this.state;
+    this.pauseTimer();
+    const newHour = parseInt(restart / 3600000);
+    const newMin = parseInt((restart / 60000)%60);
+    const newSec = parseInt(((restart / 1000)%60)%1000);
+    this.setState(({ hour, min, sec }) => ({
+      hour: newHour,
+      min: newMin,
+      sec: newSec,
+    }))
+    this.startCounter(restart)
   }
   
   render() {
@@ -59,7 +86,9 @@ export default class App extends Component {
       <Button name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
       <Button name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
       <br />
-      <Button name="start" onClick={this.startCounter} label="Start" disabled={this.state.disabled} />
+      <Button name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabled} />
+      <Button name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabled} />
+      <Button name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabled} />
       </>
     );
   }
