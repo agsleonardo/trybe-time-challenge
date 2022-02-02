@@ -1,11 +1,20 @@
+import React, { Component } from 'react';
 import './App.css';
+import Counter from './Components/Counter';
 
-function App() {
-  return (
-    <>
-    <p>Hello World</p>
-    </>
-  );
+export default class App extends Component {
+  
+  state = {
+    hour:'00',
+    min: '00',
+    sec: '00'
+  }
+
+  render() {
+    return (
+      <>
+      <Counter { ...this.state }/>
+      </>
+    );
+  }
 }
-
-export default App;
