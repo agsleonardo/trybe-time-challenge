@@ -32,13 +32,34 @@ export default class App extends Component {
     })
   }
 
+  totalTimer = () => {
+    const { hour, min, sec } = this.state
+    const timeInMiliseconds = (hour*3600000)+(min*60000)+(sec*1000)
+    return timeInMiliseconds;
+  }
+
+  updateTimer = () => this.setState(({ hour, min, sec}) => ({
+      hour: hour > 0 && min === 0 && sec === 0 ? hour - 1 : hour,
+      min: min > 0 && sec === 0 ? min - 1 : min === 0 && sec === 0 && hour >= 1 ? 59 : min,
+      sec: sec === 0 ? 59 : sec - 1
+    }))
+
+  startCounter = () => {
+    const timeInMiliseconds = this.totalTimer();
+    const interval = setInterval(this.updateTimer, 1000);
+    setTimeout(() => clearInterval(interval), timeInMiliseconds)
+  }
+  
   render() {
+
     return (
       <>
       <Counter { ...this.state }/>
       <Radio onChange={this.handleChange}/>
       <Button name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
       <Button name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
+      <br />
+      <Button name="start" onClick={this.startCounter} label="Start" disabled={this.state.disabled} />
       </>
     );
   }
