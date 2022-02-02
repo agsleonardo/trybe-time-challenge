@@ -50,7 +50,6 @@ export default class App extends Component {
     }))
 
   startCounter = (totalTimer) => {
-    // const timeInMiliseconds = this.totalTimer();
     this.interval = setInterval(this.updateTimer, 1000);
     this.timeOut = setTimeout(() => {
       clearInterval(this.interval);
