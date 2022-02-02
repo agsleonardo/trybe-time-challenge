@@ -6,7 +6,7 @@ export default class Counter extends Component {
   render() {
     const { hour, min, sec } =   this.props;
     return (
-      <p>{ hour <= 9 ? `0${hour}` : hour }
+      <p className="counter">{ hour <= 9 ? `0${hour}` : hour }
       : { min <= 9 ? `0${min}` : min } 
       : { sec <= 9 ? `0${sec}` : sec }</p>
     )

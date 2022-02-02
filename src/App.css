@@ -2,7 +2,8 @@
   margin: 0;
 }
 
-p {
-  margin: 200px;
+.counter {
   font-size: 90px;
+  display: inline-flex;
+  flex-wrap: wrap;
 }
