@@ -74,23 +74,29 @@ export default class App extends Component {
     })
   }
 
-  restartTimer = (restart) => {
-    this.pauseTimer();
-    const newHour = parseInt(restart / 3600000);
-    const newMin = parseInt((restart / 60000)%60);
-    const newSec = parseInt(((restart / 1000)%60)%1000);
-    this.setState({
+  convertMiliseconds = (mili) => {
+    const newHour = parseInt(mili / 3600000);
+    const newMin = parseInt((mili / 60000)%60);
+    const newSec = parseInt(((mili / 1000)%60)%1000);
+    return {
       hour: newHour,
       min: newMin,
       sec: newSec,  
-    });
+    }
+  }
+
+  restartTimer = (restart) => {
+    this.pauseTimer();
+    this.setState(this.convertMiliseconds(restart));
     this.startCounter(restart)
   }
 
   saveTime = () => {
-    const timeToSave = this.totalTimer();
+    const totalTime = this.totalTimer();
+    const eachTime = this.convertMiliseconds(totalTime)
+
     this.setState(({ savedTimes }) => ({
-      savedTimes: [...savedTimes, timeToSave]
+      savedTimes: [...savedTimes, {...eachTime ,totalTime}]
     }))
   }
   
@@ -118,11 +124,17 @@ export default class App extends Component {
       <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
       </section>
       <section className='saved-time'>
-        {/* {
-          savedTimes.map((time) => (
-            <Button className="adjust set" label="II"/>
+        {
+          savedTimes.map(({ hour, min, sec, totalTime }, idx) => (
+            <Button
+              key={idx}
+              className="adjust set"
+              name="start"
+              // onClick={() => this.restartTimer(totalTime)}
+              onClick={() => this.restartTimer(totalTime)}
+              label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
           ))
-        } */}
+        }
       </section>
       </main>
     );
