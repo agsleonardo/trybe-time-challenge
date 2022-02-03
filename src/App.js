@@ -88,8 +88,7 @@ export default class App extends Component {
   restartTimer = (restart) => {
     console.log(restart);
     this.pauseTimer();
-    const newObj = this.convertMiliseconds(restart)
-    this.setState({...newObj, restart});
+    this.setState(this.convertMiliseconds(restart));
     this.startCounter(restart)
   }
 
