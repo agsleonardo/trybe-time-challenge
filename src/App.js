@@ -101,9 +101,11 @@ export default class App extends Component {
       <section className='counter'>
       <Counter { ...this.state }/>
       </section>
+      <section className='optionsNew'>
+      <Radio onChange={this.handleChange}/>
+      </section>
       <section className='options'>
       <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
-      <Radio onChange={this.handleChange}/>
       <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
       </section>
       <section className='buttons top'>
@@ -114,6 +116,7 @@ export default class App extends Component {
       <Button className="adjust set" name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
       <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
       </section>
+      <section className='saved-time'></section>
       </main>
     );
   }
