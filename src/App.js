@@ -15,7 +15,7 @@ export default class App extends Component {
     disabledPause: true,
     disabledRestart: true,
     restart:0,
-    savedTimes:[],
+    savedTimes: JSON.parse(localStorage.getItem('savedTimes')) || [],
   }
 
   interval = null;
@@ -62,6 +62,7 @@ export default class App extends Component {
     this.setState({
       disabledPause: false,
       disabledStart: true,
+      restart: totalTimer,
     })
   }
 
@@ -94,10 +95,9 @@ export default class App extends Component {
   saveTime = () => {
     const totalTime = this.totalTimer();
     const eachTime = this.convertMiliseconds(totalTime)
-
-    this.setState(({ savedTimes }) => ({
-      savedTimes: [...savedTimes, {...eachTime ,totalTime}]
-    }))
+    this.setState({
+      savedTimes: [...this.state.savedTimes, {...eachTime ,totalTime}]
+    }, () => localStorage.setItem('savedTimes', JSON.stringify(this.state.savedTimes)))
   }
   
   render() {
@@ -130,8 +130,7 @@ export default class App extends Component {
               key={idx}
               className="adjust set"
               name="start"
-              // onClick={() => this.restartTimer(totalTime)}
-              onClick={() => this.restartTimer(totalTime)}
+              onClick={() => this.startCounter(totalTime)}
               label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
           ))
         }
