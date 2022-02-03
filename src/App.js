@@ -106,37 +106,39 @@ export default class App extends Component {
     const { savedTimes, restart } = this.state;
     return (
       <main className='main'>
-      <section className='header'>
-        TRYBE TIMER CHALLENGE
-      </section>
-      <section className='counter'>
-      <Counter { ...this.state }/>
-      </section>
-      <section className='options'>
-      <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-1" disabled={this.state.disabled} />
-      <Radio onChange={this.handleChange}/>
-      <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+1" disabled={this.state.disabled} />
-      </section>
-      <section className='buttons top'>
-      <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
-      </section>
-      <section className='buttons'>
-      <Button className="adjust set" name="pause" onClick={this.pauseTimer} label={<PauseIcon />} disabled={this.state.disabledPause} />
-      <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label={<ThreeSixtyIcon />} disabled={this.state.restart === 0} />
-      <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
-      </section>
-      <section className='saved-time'>
-        {
-          savedTimes.map(({ hour, min, sec, totalTime }, idx) => (
-            <Button
-              key={idx}
-              className="adjust set"
-              name="start"
-              onClick={() => this.restartTimer(totalTime)}
-              label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
-          ))
-        }
-      </section>
+        <section className='crono'>
+          <section className='header'>
+            TRYBE TIMER CHALLENGE
+          </section>
+          <section className='counter'>
+          <Counter { ...this.state }/>
+          </section>
+          <section className='options'>
+          <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-1" disabled={this.state.disabled} />
+          <Radio onChange={this.handleChange}/>
+          <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+1" disabled={this.state.disabled} />
+          </section>
+          <section className='buttons top'>
+          <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
+          </section>
+          <section className='buttons'>
+          <Button className="adjust set" name="pause" onClick={this.pauseTimer} label={<PauseIcon />} disabled={this.state.disabledPause} />
+          <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label={<ThreeSixtyIcon />} disabled={this.state.restart === 0} />
+          <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
+          </section>
+          <section className='saved-time'>
+            {
+              savedTimes.map(({ hour, min, sec, totalTime }, idx) => (
+                <Button
+                  key={idx}
+                  className="adjust set"
+                  name="start"
+                  onClick={() => this.restartTimer(totalTime)}
+                  label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
+              ))
+            }
+          </section>
+        </section>
       </main>
     );
   }

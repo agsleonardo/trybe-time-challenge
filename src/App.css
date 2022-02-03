@@ -18,12 +18,32 @@ input[type=radio] {
   width: 100%;
   height: 3em;
 }
+
 .main {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.crono {
   display: inline-flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  width: 80vw;
+  height: 100vh;
+}
+
+.music {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  width: 20vw;
   height: 100vh;
 }
 
