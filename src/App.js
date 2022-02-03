@@ -3,6 +3,8 @@ import './App.css';
 import Counter from './Components/Counter';
 import Button from './Components/Button';
 import Radio from './Components/Radio';
+import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
+import PauseIcon from '@mui/icons-material/Pause';
 
 export default class App extends Component {
   
@@ -41,9 +43,9 @@ export default class App extends Component {
   }
 
   totalTimer = () => {
-    const { hour, min, sec } = this.state
+    const { hour, min, sec, restart } = this.state
     const timeInMiliseconds = (hour*3600000)+(min*60000)+(sec*1000)
-    this.setState({restart: timeInMiliseconds})
+    this.setState({restart: restart === 0 ? timeInMiliseconds : restart})
     return timeInMiliseconds;
   }
 
@@ -53,12 +55,12 @@ export default class App extends Component {
       sec: sec === 0 ? 59 : sec - 1
     }))
 
-  startCounter = (totalTimer) => {
+  startCounter = (totalTime) => {
     this.interval = setInterval(this.updateTimer, 1000);
     this.timeOut = setTimeout(() => {
       clearInterval(this.interval);
       alert('Acabou o tempo!')
-    }, totalTimer)
+    }, totalTime)
     this.setState({
       disabledPause: false,
       disabledStart: true,
@@ -111,16 +113,16 @@ export default class App extends Component {
       <Counter { ...this.state }/>
       </section>
       <section className='options'>
-      <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
+      <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-1" disabled={this.state.disabled} />
       <Radio onChange={this.handleChange}/>
-      <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
+      <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+1" disabled={this.state.disabled} />
       </section>
       <section className='buttons top'>
       <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
       </section>
       <section className='buttons'>
-      <Button className="adjust set" name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
-      <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label="Reiniciar" disabled={this.state.restart === 0} />
+      <Button className="adjust set" name="pause" onClick={this.pauseTimer} label={<PauseIcon />} disabled={this.state.disabledPause} />
+      <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label={<ThreeSixtyIcon />} disabled={this.state.restart === 0} />
       <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
       </section>
       <section className='saved-time'>
