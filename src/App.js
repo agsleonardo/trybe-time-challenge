@@ -18,7 +18,21 @@ export default class App extends Component {
     disabledRestart: true,
     restart:0,
     savedTimes: JSON.parse(localStorage.getItem('savedTimes')) || [],
+    play: false,
+    pause: true,
   }
+
+  url = 'http://streaming.tdiradio.com:8000/house.mp3';
+  audio = new Audio(this.url);
+  play = () => {
+    this.setState({ play: true, pause: false })
+      this.audio.play();
+    }
+    
+  pause = () => {
+  this.setState({ play: false, pause: true })
+    this.audio.pause();
+  }    
 
   interval = null;
   timeout = null;
@@ -56,6 +70,7 @@ export default class App extends Component {
     }))
 
   startCounter = (totalTime) => {
+    this.play();
     this.interval = setInterval(this.updateTimer, 1000);
     this.timeOut = setTimeout(() => {
       clearInterval(this.interval);
@@ -68,6 +83,7 @@ export default class App extends Component {
   }
 
   pauseTimer = () => {
+    this.pause();
     clearInterval(this.interval);
     clearTimeout(this.timeOut);
     this.setState({
@@ -88,6 +104,7 @@ export default class App extends Component {
   }
 
   restartTimer = (restart) => {
+    this.play();
     console.log(restart);
     this.pauseTimer();
     this.setState(this.convertMiliseconds(restart));
@@ -138,6 +155,8 @@ export default class App extends Component {
               ))
             }
           </section>
+        </section>
+        <section className='music'>
         </section>
       </main>
     );
