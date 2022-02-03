@@ -15,6 +15,7 @@ export default class App extends Component {
     disabledPause: true,
     disabledRestart: true,
     restart:0,
+    savedTimes:[],
   }
 
   interval = null;
@@ -73,8 +74,7 @@ export default class App extends Component {
     })
   }
 
-  restartTimer = () => {
-    const { restart } = this.state;
+  restartTimer = (restart) => {
     this.pauseTimer();
     const newHour = parseInt(restart / 3600000);
     const newMin = parseInt((restart / 60000)%60);
@@ -88,11 +88,14 @@ export default class App extends Component {
   }
 
   saveTime = () => {
-    console.log('oi');
+    const timeToSave = this.totalTimer();
+    this.setState(({ savedTimes }) => ({
+      savedTimes: [...savedTimes, timeToSave]
+    }))
   }
   
   render() {
-
+    const { savedTimes, restart } = this.state;
     return (
       <main className='main'>
       <section className='header'>
@@ -101,11 +104,9 @@ export default class App extends Component {
       <section className='counter'>
       <Counter { ...this.state }/>
       </section>
-      <section className='optionsNew'>
-      <Radio onChange={this.handleChange}/>
-      </section>
       <section className='options'>
       <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
+      <Radio onChange={this.handleChange}/>
       <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
       </section>
       <section className='buttons top'>
@@ -113,10 +114,16 @@ export default class App extends Component {
       </section>
       <section className='buttons'>
       <Button className="adjust set" name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
-      <Button className="adjust set" name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
+      <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label="Reiniciar" disabled={this.state.disabledRestart} />
       <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
       </section>
-      <section className='saved-time'></section>
+      <section className='saved-time'>
+        {/* {
+          savedTimes.map((time) => (
+            <Button className="adjust set" label="II"/>
+          ))
+        } */}
+      </section>
       </main>
     );
   }

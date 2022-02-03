@@ -30,6 +30,7 @@ input[type=radio] {
 .header {
   font-size: 48px;
   font-weight: 100;
+  margin-top: -150px;
 }
 
 .counter {
@@ -42,14 +43,6 @@ input[type=radio] {
   display: inline-flex;
   align-items: center;
   text-align: center;
-}
-
-.optionsNew {
-  display: inline-flex;
-  flex-direction: row;
-  align-items: center;
-  text-align: center;
-  width: 50%;
 }
 
 .buttons {
