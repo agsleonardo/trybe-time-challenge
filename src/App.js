@@ -11,7 +11,9 @@ export default class App extends Component {
     min: 0,
     sec: 0,
     toChange:'',
-    disabled: true,
+    disabledStart: true,
+    disabledPause: true,
+    disabledRestart: true,
     restart:0,
   }
 
@@ -32,7 +34,8 @@ export default class App extends Component {
   handleChange = ( { target: { value } } ) => {
     this.setState({
       toChange: value,
-      disabled: false
+      disabledStart: false,
+      disabledRestart: false
     })
   }
 
@@ -55,11 +58,19 @@ export default class App extends Component {
       clearInterval(this.interval);
       alert('Acabou o tempo!')
     }, totalTimer)
+    this.setState({
+      disabledPause: false,
+      disabledStart: true,
+    })
   }
 
   pauseTimer = () => {
     clearInterval(this.interval);
     clearTimeout(this.timeOut);
+    this.setState({
+      disabledPause: true,
+      disabledStart: false,
+    })
   }
 
   restartTimer = () => {
@@ -85,9 +96,9 @@ export default class App extends Component {
       <Button name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
       <Button name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
       <br />
-      <Button name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabled} />
-      <Button name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabled} />
-      <Button name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabled} />
+      <Button name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
+      <Button name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
+      <Button name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
       </>
     );
   }
