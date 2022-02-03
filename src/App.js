@@ -86,20 +86,32 @@ export default class App extends Component {
     });
     this.startCounter(restart)
   }
+
+  saveTime = () => {
+    console.log('oi');
+  }
   
   render() {
 
     return (
-      <>
+      <main className='main'>
+      <section className='header'>
+        TRYBE TIMER CHALLENGE
+      </section>
+      <section className='header'>
       <Counter { ...this.state }/>
-      <Radio onChange={this.handleChange}/>
+      </section>
+      <section className='buttons'>
       <Button name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
+      <Radio onChange={this.handleChange}/>
       <Button name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
       <br />
       <Button name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
       <Button name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
       <Button name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
-      </>
+      <Button name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
+      </section>
+      </main>
     );
   }
 }
