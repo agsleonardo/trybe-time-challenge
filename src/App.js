@@ -156,8 +156,6 @@ export default class App extends Component {
             }
           </section>
         </section>
-        <section className='music'>
-        </section>
       </main>
     );
   }
