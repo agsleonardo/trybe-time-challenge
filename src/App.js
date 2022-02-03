@@ -98,7 +98,7 @@ export default class App extends Component {
       <section className='header'>
         TRYBE TIMER CHALLENGE
       </section>
-      <section className='header'>
+      <section className='counter'>
       <Counter { ...this.state }/>
       </section>
       <section className='options'>
@@ -106,11 +106,13 @@ export default class App extends Component {
       <Radio onChange={this.handleChange}/>
       <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
       </section>
+      <section className='buttons top'>
+      <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
+      </section>
       <section className='buttons'>
-      <Button name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
-      <Button name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
-      <Button name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
-      <Button name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
+      <Button className="adjust set" name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
+      <Button className="adjust set" name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
+      <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
       </section>
       </main>
     );
