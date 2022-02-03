@@ -62,7 +62,6 @@ export default class App extends Component {
     this.setState({
       disabledPause: false,
       disabledStart: true,
-      restart: totalTimer,
     })
   }
 
@@ -87,8 +86,10 @@ export default class App extends Component {
   }
 
   restartTimer = (restart) => {
+    console.log(restart);
     this.pauseTimer();
-    this.setState(this.convertMiliseconds(restart));
+    const newObj = this.convertMiliseconds(restart)
+    this.setState({...newObj, restart});
     this.startCounter(restart)
   }
 
@@ -120,7 +121,7 @@ export default class App extends Component {
       </section>
       <section className='buttons'>
       <Button className="adjust set" name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
-      <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label="Reiniciar" disabled={this.state.disabledRestart} />
+      <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label="Reiniciar" disabled={this.state.restart === 0} />
       <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
       </section>
       <section className='saved-time'>
@@ -130,7 +131,7 @@ export default class App extends Component {
               key={idx}
               className="adjust set"
               name="start"
-              onClick={() => this.startCounter(totalTime)}
+              onClick={() => this.restartTimer(totalTime)}
               label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
           ))
         }
