@@ -68,11 +68,11 @@ export default class App extends Component {
     const newHour = parseInt(restart / 3600000);
     const newMin = parseInt((restart / 60000)%60);
     const newSec = parseInt(((restart / 1000)%60)%1000);
-    this.setState(({ hour, min, sec }) => ({
+    this.setState({
       hour: newHour,
       min: newMin,
-      sec: newSec,
-    }))
+      sec: newSec,  
+    });
     this.startCounter(restart)
   }
   
