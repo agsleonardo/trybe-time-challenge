@@ -17,4 +17,5 @@ Button.propTypes = {
   onClick: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
   label: PropTypes.string.isRequired,
+  className: PropTypes.string.isRequired,
 }

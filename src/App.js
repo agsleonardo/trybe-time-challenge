@@ -101,11 +101,12 @@ export default class App extends Component {
       <section className='header'>
       <Counter { ...this.state }/>
       </section>
-      <section className='buttons'>
-      <Button name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
+      <section className='options'>
+      <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
       <Radio onChange={this.handleChange}/>
-      <Button name="subCounter" onClick={this.handleClick} label="-" disabled={this.state.disabled} />
-      <br />
+      <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+" disabled={this.state.disabled} />
+      </section>
+      <section className='buttons'>
       <Button name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
       <Button name="pause" onClick={this.pauseTimer} label="II" disabled={this.state.disabledPause} />
       <Button name="restart" onClick={this.restartTimer} label="Reiniciar" disabled={this.state.disabledRestart} />
