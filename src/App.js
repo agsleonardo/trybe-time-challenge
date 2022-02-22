@@ -21,14 +21,16 @@ export default class App extends Component {
     play: false,
     pause: true,
   }
-
-  url = 'https://listen.christianhardrock.net/stream/3/';
+  radios = ['https://listen.christianhardrock.net/stream/3',
+'https://ssl.smghosting.com.br:7014',
+'https://r163-172-186-93.relay.radiotoolkit.com:30003/rcmdeep']
+  url = this.radios[Math.floor(Math.random() * (2 - 0)) + 0];
   audio = new Audio(this.url);
   play = () => {
     this.setState({ play: true, pause: false })
       this.audio.play();
     }
-    
+  
   pause = () => {
   this.setState({ play: false, pause: true })
     this.audio.pause();
@@ -75,6 +77,7 @@ export default class App extends Component {
     this.timeOut = setTimeout(() => {
       clearInterval(this.interval);
       alert('Acabou o tempo!')
+      this.audio.pause();
     }, totalTime)
     this.setState({
       disabledPause: false,
@@ -105,7 +108,6 @@ export default class App extends Component {
 
   restartTimer = (restart) => {
     this.play();
-    console.log(restart);
     this.pauseTimer();
     this.setState(this.convertMiliseconds(restart));
     this.startCounter(restart)
