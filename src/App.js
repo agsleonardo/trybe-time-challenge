@@ -31,7 +31,7 @@ export default class App extends Component {
     
   pause = () => {
   this.setState({ play: false, pause: true })
-    this.audio.pause();
+    this.audio.stop();
   }    
 
   interval = null;
