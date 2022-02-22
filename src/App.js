@@ -37,13 +37,13 @@ export default class App extends Component {
   interval = null;
   timeout = null;
 
-  refreshCount = (button, value) => {
-    return button === 'addCounter' ? value + 1 : value - 1 
+  refreshCount = (button, value, lastTime) => {
+    return button === 'addCounter' ? lastTime + Number(value) : lastTime - Number(value) 
   }
 
-  handleClick =  ({ target: { name } }) => {
+  handleClick =  ({ target: { name, value } }) => {
     this.setState(({ toChange }) => {
-      const newValue = this.refreshCount(name, this.state[toChange])
+      const newValue = this.refreshCount(name, value, this.state[toChange])
       return { [toChange]: newValue < 0 ? 0 : newValue }
     })
   }
@@ -131,9 +131,17 @@ export default class App extends Component {
           <Counter { ...this.state }/>
           </section>
           <section className='options'>
-          <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-1" disabled={this.state.disabled} />
+          <section>
+            <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-1" value="1" disabled={this.state.disabled} />
+            <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-3" value="3" disabled={this.state.disabled} />
+            <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-5" value="5" disabled={this.state.disabled} />
+          </section>
           <Radio onChange={this.handleChange}/>
-          <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+1" disabled={this.state.disabled} />
+          <section>
+            <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+1" value="1" disabled={this.state.disabled} />
+            <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+3" value="3" disabled={this.state.disabled} />
+            <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+5" value="5" disabled={this.state.disabled} />
+          </section>
           </section>
           <section className='buttons top'>
           <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
