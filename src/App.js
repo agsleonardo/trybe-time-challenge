@@ -22,7 +22,7 @@ export default class App extends Component {
     pause: true,
   }
 
-  url = 'http://streaming.tdiradio.com:8000/house.mp3';
+  url = 'https://listen.christianhardrock.net/stream/3/';
   audio = new Audio(this.url);
   play = () => {
     this.setState({ play: true, pause: false })
