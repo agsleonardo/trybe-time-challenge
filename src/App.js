@@ -182,8 +182,8 @@ export default class App extends Component {
             <Radio onChange={this.handleChange}/>
           </section>
             <SliderTool onChange={this.handleChangeSlider} />
-            {pause && <HeadsetIcon onClick={this.audio.pause()} fontSize='large' />}
-            {play && <HeadsetOffIcon onClick={this.audio.play()} fontSize='large' />}
+            {pause && <HeadsetIcon onClick={this.audio.pause} fontSize='large' />}
+            {play && <HeadsetOffIcon onClick={this.audio.play} fontSize='large' />}
           <section className='buttons top'>
           <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
           </section>
