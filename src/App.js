@@ -75,9 +75,9 @@ export default class App extends Component {
     this.play();
     this.interval = setInterval(this.updateTimer, 1000);
     this.timeOut = setTimeout(() => {
+      this.audio.pause();
       clearInterval(this.interval);
       alert('Acabou o tempo!')
-      this.audio.pause();
     }, totalTime)
     this.setState({
       disabledPause: false,
