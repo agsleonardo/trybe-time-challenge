@@ -127,13 +127,6 @@ input[type=radio] {
   font-size: 300%;
 }
 
-@media (min-width: 768px) {
-  .adjust {
-    font-size: 21px;
-    padding: 18px 34px;
-  }
-}
-
 button:disabled,
 button[disabled]{
   background-color: #cccccc;
@@ -169,4 +162,15 @@ button[disabled]{
 
 .top {
   margin-top: 20px;
+}
+
+.headset {
+  cursor: pointer;
+}
+
+@media (min-width: 768px) {
+  .adjust {
+    font-size: 21px;
+    padding: 18px 34px;
+  }
 }

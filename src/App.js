@@ -26,22 +26,30 @@ export default class App extends Component {
     play: false,
     pause: true,
     end: false,
+    mute: true,
     showSelect: false,
     radios: ['https://listen.christianhardrock.net/stream/3',
 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream']
   }
 
-  url = 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream';
-  audio = new Audio(this.url);
-  play = () => {
-    this.setState({ play: true, pause: false })
+    url = 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream';
+    audio = new Audio(this.url);
+    play = () => {
+      this.setState({ play: true, pause: false })
       this.audio.play();
     }
+    
+    pause = () => {
+    this.setState({ play: false, pause: true })
+      this.audio.pause();
+    }    
+
+    mute = ({target}) => {
+      const { mute } = this.state;
+      this.setState(({mute}) => ({ mute: !mute }))
+      mute ? this.audio.volume = 0 : this.audio.volume = 1
+    }    
   
-  pause = () => {
-  this.setState({ play: false, pause: true })
-    this.audio.pause();
-  }    
 
   interval = null;
   timeout = null;
@@ -155,7 +163,7 @@ export default class App extends Component {
   }
   
   render() {
-    const { savedTimes, restart, end, showSelect, play, pause } = this.state;
+    const { savedTimes, restart, end, showSelect, mute } = this.state;
     return (
       <>
       {
@@ -182,8 +190,8 @@ export default class App extends Component {
             <Radio onChange={this.handleChange}/>
           </section>
             <SliderTool onChange={this.handleChangeSlider} />
-            {pause && <HeadsetIcon onClick={this.audio.pause} fontSize='large' />}
-            {play && <HeadsetOffIcon onClick={this.audio.play} fontSize='large' />}
+            {!mute && <HeadsetIcon className="headset" name="pause" onClick={this.mute} fontSize='large' />}
+            {mute && <HeadsetOffIcon className="headset" name="play" onClick={this.mute} fontSize='large' />}
           <section className='buttons top'>
           <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
           </section>
