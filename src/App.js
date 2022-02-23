@@ -6,7 +6,6 @@ import Radio from './Components/Radio';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import PauseIcon from '@mui/icons-material/Pause';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
-import { TimerSharp } from '@mui/icons-material';
 
 export default class App extends Component {
   
