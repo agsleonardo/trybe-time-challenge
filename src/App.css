@@ -104,6 +104,22 @@ input[type=radio] {
   background-image: linear-gradient(rgba(66, 72, 105, 1),  rgba(39, 44, 67, 1) 50%);
 }
 
+.modal {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 4em;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.9);
+  position: absolute;
+}
+
+#icon {
+  font-size: 300%;
+}
+
 @media (min-width: 768px) {
   .adjust {
     font-size: 21px;

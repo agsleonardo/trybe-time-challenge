@@ -5,6 +5,8 @@ import Button from './Components/Button';
 import Radio from './Components/Radio';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import PauseIcon from '@mui/icons-material/Pause';
+import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import { TimerSharp } from '@mui/icons-material';
 
 export default class App extends Component {
   
@@ -20,6 +22,7 @@ export default class App extends Component {
     savedTimes: JSON.parse(localStorage.getItem('savedTimes')) || [],
     play: false,
     pause: true,
+    end: false,
     radios: ['https://listen.christianhardrock.net/stream/3',
 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream']
   }
@@ -77,7 +80,7 @@ export default class App extends Component {
     this.timeOut = setTimeout(() => {
       this.audio.pause();
       clearInterval(this.interval);
-      alert('Acabou o tempo!')
+      this.setState({end: true})
     }, totalTime)
     this.setState({
       disabledPause: false,
@@ -113,6 +116,10 @@ export default class App extends Component {
     this.startCounter(restart)
   }
 
+  closeModal = () => {
+    this.setState({end: false})
+  }
+
   saveTime = () => {
     const totalTime = this.totalTimer();
     const eachTime = this.convertMiliseconds(totalTime)
@@ -122,8 +129,15 @@ export default class App extends Component {
   }
   
   render() {
-    const { savedTimes, restart } = this.state;
+    const { savedTimes, restart, end } = this.state;
     return (
+      <>
+      {
+      end && <div className='modal' onClick={this.closeModal}>
+        <h1>ACABOU O TEMPO!</h1>
+        <AccessAlarmIcon id="icon"/>
+      </div>
+      }
       <main className='main'>
         <section className='crono'>
           <section className='header'>
@@ -157,16 +171,17 @@ export default class App extends Component {
             {
               savedTimes.map(({ hour, min, sec, totalTime }, idx) => (
                 <Button
-                  key={idx}
+                key={idx}
                   className="adjust set"
                   name="start"
                   onClick={() => this.restartTimer(totalTime)}
                   label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
-              ))
-            }
+                  ))
+                }
           </section>
         </section>
       </main>
+    </>
     );
   }
 }
