@@ -6,6 +6,7 @@ import Radio from './Components/Radio';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import PauseIcon from '@mui/icons-material/Pause';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
 import SliderTool from './Components/Slider';
 
 export default class App extends Component {
@@ -183,9 +184,9 @@ export default class App extends Component {
           <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
           </section>
           <section className='buttons'>
-          <Button className="adjust set" name="pause" onClick={this.pauseTimer} label={<PauseIcon />} disabled={this.state.disabledPause} />
-          <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label={<ThreeSixtyIcon />} disabled={this.state.restart === 0} />
-          <Button className="adjust set" name="saveTime" onClick={this.saveTime} label="Salvar tempo" disabled={this.state.disabledStart} />
+          <Button className="adjust set" name="pause" onClick={this.pauseTimer} label={<PauseIcon fontSize='large'/>} disabled={this.state.disabledPause} />
+          <Button className="adjust set" name="restart" onClick={() => this.restartTimer(restart)} label={<ThreeSixtyIcon fontSize='large'/>} disabled={this.state.restart === 0} />
+          <Button className="adjust set" name="saveTime" onClick={this.saveTime} label={<SaveAsTwoToneIcon fontSize='large' />} disabled={this.state.disabledStart} />
           </section>
           <section className='saved-time'>
             {
