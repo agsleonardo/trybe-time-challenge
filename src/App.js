@@ -112,6 +112,15 @@ export default class App extends Component {
     })
   }
 
+  deleteStoredTime = (totalTimeParam) => {
+    const stored = JSON.parse(localStorage.getItem('savedTimes'));
+    const filteredTimes = stored.filter(({totalTime}) => totalTime !== totalTimeParam)
+    localStorage.setItem('savedTimes', JSON.stringify(filteredTimes))
+    this.setState({
+      savedTimes: filteredTimes,
+    })
+  }
+
   convertMiliseconds = (mili) => {
     const newHour = parseInt(mili / 3600000);
     const newMin = parseInt((mili / 60000)%60);
@@ -181,12 +190,21 @@ export default class App extends Component {
           <section className='saved-time'>
             {
               savedTimes.map(({ hour, min, sec, totalTime }, idx) => (
+                <>
                 <Button
-                key={idx}
+                  key={idx}
                   className="adjust set"
                   name="start"
                   onClick={() => this.restartTimer(totalTime)}
                   label={`${hour <= 9 ? `0${hour}` : hour}:${min <= 9 ? `0${min}` : min}:${sec <= 9 ? `0${sec}` : sec}`} />
+                  <Button 
+                    key={totalTime}
+                    id={totalTime}
+                    className="erase-time"
+                    label="X"
+                    onClick={() => this.deleteStoredTime(totalTime)}
+                  />
+                  </>
                   ))
                 }
           </section>
