@@ -6,6 +6,7 @@ import Radio from './Components/Radio';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import PauseIcon from '@mui/icons-material/Pause';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
+import SliderTool from './Components/Slider';
 
 export default class App extends Component {
   
@@ -22,6 +23,7 @@ export default class App extends Component {
     play: false,
     pause: true,
     end: false,
+    showSelect: false,
     radios: ['https://listen.christianhardrock.net/stream/3',
 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream']
   }
@@ -49,6 +51,19 @@ export default class App extends Component {
     this.setState(({ toChange }) => {
       const newValue = this.refreshCount(name, value, this.state[toChange])
       return { [toChange]: newValue < 0 ? 0 : newValue }
+    })
+  }
+
+  handleChangeSlider = ({ target: { value } }) => {
+    const { toChange } = this.state;
+    if (toChange === '') {
+      this.setState({
+        showSelect: true,
+      });
+      return;
+    }
+    this.setState(({ toChange }) => {
+      return { [toChange]: value }
     })
   }
 
@@ -116,7 +131,7 @@ export default class App extends Component {
   }
 
   closeModal = () => {
-    this.setState({end: false})
+    this.setState({end: false, showSelect: false})
   }
 
   saveTime = () => {
@@ -128,12 +143,18 @@ export default class App extends Component {
   }
   
   render() {
-    const { savedTimes, restart, end } = this.state;
+    const { savedTimes, restart, end, showSelect } = this.state;
     return (
       <>
       {
+      showSelect && <div className='modal' onClick={this.closeModal}>
+        <h1>CHOOSE A OPTION BEFORE CHANGE!</h1>
+        <AccessAlarmIcon id="icon"/>
+      </div>
+      }
+      {
       end && <div className='modal' onClick={this.closeModal}>
-        <h1>ACABOU O TEMPO!</h1>
+        <h1>FINISHED!!</h1>
         <AccessAlarmIcon id="icon"/>
       </div>
       }
@@ -145,19 +166,10 @@ export default class App extends Component {
           <section className='counter'>
           <Counter { ...this.state }/>
           </section>
-          <section className='options'>
           <section>
-            <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-1" value="1" disabled={this.state.disabled} />
-            <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-3" value="3" disabled={this.state.disabled} />
-            <Button className="adjust" name="subCounter" onClick={this.handleClick} label="-5" value="5" disabled={this.state.disabled} />
+            <Radio onChange={this.handleChange}/>
           </section>
-          <Radio onChange={this.handleChange}/>
-          <section>
-            <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+1" value="1" disabled={this.state.disabled} />
-            <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+3" value="3" disabled={this.state.disabled} />
-            <Button className="adjust" name="addCounter" onClick={this.handleClick} label="+5" value="5" disabled={this.state.disabled} />
-          </section>
-          </section>
+            <SliderTool onChange={this.handleChangeSlider} />
           <section className='buttons top'>
           <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
           </section>

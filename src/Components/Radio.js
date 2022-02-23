@@ -7,9 +7,17 @@ export default class Radio extends Component {
     const { onChange } =   this.props;
     return (
       <label htmlFor='radioTime'>
-        <input type="radio" value="hour" name="radioTime" onChange={onChange}/> Hours
-        <input type="radio" value="min" name="radioTime" onChange={onChange}/> Minutes
-        <input type="radio" value="sec" name="radioTime" onChange={onChange}/> Seconds
+        <div className='options-container'>
+        <div className='option'>
+          <input type="radio" value="hour" name="radioTime" onChange={onChange}/> Hours
+        </div>
+        <div className='option'>
+          <input type="radio" value="min" name="radioTime" onChange={onChange}/> Minutes
+        </div>
+        <div className='option'>
+          <input type="radio" value="sec" name="radioTime" onChange={onChange}/> Seconds
+        </div>
+        </div>
       </label>
     )
   }
