@@ -8,6 +8,8 @@ import PauseIcon from '@mui/icons-material/Pause';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
 import SliderTool from './Components/Slider';
+import HeadsetIcon from '@mui/icons-material/Headset';
+import HeadsetOffIcon from '@mui/icons-material/HeadsetOff';
 
 export default class App extends Component {
   
@@ -153,7 +155,7 @@ export default class App extends Component {
   }
   
   render() {
-    const { savedTimes, restart, end, showSelect } = this.state;
+    const { savedTimes, restart, end, showSelect, play, pause } = this.state;
     return (
       <>
       {
@@ -180,6 +182,8 @@ export default class App extends Component {
             <Radio onChange={this.handleChange}/>
           </section>
             <SliderTool onChange={this.handleChangeSlider} />
+            {pause && <HeadsetIcon onClick={this.audio.pause()} fontSize='large' />}
+            {play && <HeadsetOffIcon onClick={this.audio.play()} fontSize='large' />}
           <section className='buttons top'>
           <Button className="adjust set" name="start" onClick={() => this.startCounter(this.totalTimer())} label="Start" disabled={this.state.disabledStart} />
           </section>
