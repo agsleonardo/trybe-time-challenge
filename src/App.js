@@ -21,9 +21,10 @@ export default class App extends Component {
     play: false,
     pause: true,
   }
-  radios = ['https://listen.christianhardrock.net/stream/3',
-'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream']
-  url = this.radios[Math.floor(Math.random() * (1 - 0)) + 0];
+//   radios = ['https://listen.christianhardrock.net/stream/3',
+// 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream']
+  // url = this.radios[Math.floor(Math.random() * (1 - 0)) + 0];
+  url = 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream';
   audio = new Audio(this.url);
   play = () => {
     this.setState({ play: true, pause: false })
