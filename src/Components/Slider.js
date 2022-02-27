@@ -5,7 +5,8 @@ import Box from '@mui/material/Box';
 
 const TimerSlider = styled(Slider)({
   color: '#fff',
-  height: 8,
+  height: 10,
+  width: 150,
   '& .MuiSlider-track': {
     border: 'none',
   },
@@ -46,10 +47,10 @@ const TimerSlider = styled(Slider)({
 export default class SliderTool extends Component {
   
   render() {
-    const { onChange } =   this.props;
+    const { onChange, name } =   this.props;
     return (
-      <Box width={400}>
         <TimerSlider
+        name={name}
         valueLabelDisplay="auto"
         aria-label="pretto slider"
         defaultValue={0}
@@ -57,8 +58,6 @@ export default class SliderTool extends Component {
         max={59}
         onChange={onChange}
       />
-      </Box>
-
     )
   }
 }

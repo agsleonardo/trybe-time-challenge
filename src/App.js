@@ -65,26 +65,21 @@ export default class App extends Component {
     })
   }
 
-  handleChangeSlider = ({ target: { value } }) => {
-    const { toChange } = this.state;
-    if (toChange === '') {
-      this.setState({
-        showSelect: true,
-      });
-      return;
-    }
-    this.setState(({ toChange }) => {
-      return { [toChange]: value }
-    })
-  }
-
-  handleChange = ( { target: { value } } ) => {
+  handleChangeSlider = ({ target: { value, name } }) => {
     this.setState({
-      toChange: value,
+      [name]: value,
       disabledStart: false,
       disabledRestart: false
     })
   }
+
+  // handleChange = ( { target: { value } } ) => {
+  //   this.setState({
+  //     toChange: value,
+  //     disabledStart: false,
+  //     disabledRestart: false
+  //   })
+  // }
 
   totalTimer = () => {
     const { hour, min, sec, restart } = this.state
@@ -184,12 +179,8 @@ export default class App extends Component {
             TRYBE TIMER CHALLENGE
           </section>
           <section className='counter'>
-          <Counter { ...this.state }/>
+          <Counter { ...this.state } onChange={this.handleChangeSlider}/>
           </section>
-          <section>
-            <Radio onChange={this.handleChange}/>
-          </section>
-            <SliderTool onChange={this.handleChangeSlider} />
             {!mute && <HeadsetIcon className="headset" name="pause" onClick={this.mute} fontSize='large' />}
             {mute && <HeadsetOffIcon className="headset" name="play" onClick={this.mute} fontSize='large' />}
           <section className='buttons top'>
