@@ -71,14 +71,6 @@ export default class App extends Component {
     })
   }
 
-  // handleChange = ( { target: { value } } ) => {
-  //   this.setState({
-  //     toChange: value,
-  //     disabledStart: false,
-  //     disabledRestart: false
-  //   })
-  // }
-
   totalTimer = () => {
     const { hour, min, sec, restart } = this.state
     const timeInMiliseconds = (hour*3600000)+(min*60000)+(sec*1000)
