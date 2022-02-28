@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
-import Box from '@mui/material/Box';
 
 const TimerSlider = styled(Slider)({
   color: '#fff',

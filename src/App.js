@@ -2,12 +2,10 @@ import React, { Component } from 'react';
 import './App.css';
 import Counter from './Components/Counter';
 import Button from './Components/Button';
-import Radio from './Components/Radio';
 import ThreeSixtyIcon from '@mui/icons-material/ThreeSixty';
 import PauseIcon from '@mui/icons-material/Pause';
 import AccessAlarmIcon from '@mui/icons-material/AccessAlarm';
 import SaveAsTwoToneIcon from '@mui/icons-material/SaveAsTwoTone';
-import SliderTool from './Components/Slider';
 import HeadsetIcon from '@mui/icons-material/Headset';
 import HeadsetOffIcon from '@mui/icons-material/HeadsetOff';
 
