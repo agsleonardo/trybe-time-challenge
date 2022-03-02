@@ -30,23 +30,23 @@ export default class App extends Component {
 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream']
   }
 
-    url = 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream';
-    audio = new Audio(this.url);
-    play = () => {
-      this.setState({ play: true, pause: false })
-      this.audio.play();
-    }
-    
-    pause = () => {
-    this.setState({ play: false, pause: true })
-      this.audio.pause();
-    }    
+  url = 'https://uk7.internet-radio.com/proxy/movedahouse?mp=/stream';
+  audio = new Audio(this.url);
+  play = () => {
+    this.setState({ play: true, pause: false })
+    this.audio.play();
+  }
+  
+  pause = () => {
+  this.setState({ play: false, pause: true })
+    this.audio.pause();
+  }    
 
-    mute = ({target}) => {
-      const { mute } = this.state;
-      this.setState(({mute}) => ({ mute: !mute }))
-      mute ? this.audio.volume = 0 : this.audio.volume = 1
-    }    
+  mute = ({target}) => {
+    const { mute } = this.state;
+    this.setState(({mute}) => ({ mute: !mute }))
+    mute ? this.audio.volume = 0 : this.audio.volume = 1
+  }    
   
 
   interval = null;
@@ -148,7 +148,7 @@ export default class App extends Component {
   }
   
   render() {
-    const { savedTimes, restart, end, showSelect, mute } = this.state;
+    const { savedTimes, restart, end, showSelect, mute, pause } = this.state;
     return (
       <>
       {
@@ -169,7 +169,7 @@ export default class App extends Component {
             TRYBE TIMER CHALLENGE
           </section>
           <section className='counter'>
-          <Counter { ...this.state } onChange={this.handleChangeSlider}/>
+          <Counter { ...this.state } onChange={this.handleChangeSlider} pause={ pause }/>
           </section>
             {!mute && <HeadsetIcon className="headset" name="pause" onClick={this.mute} fontSize='large' />}
             {mute && <HeadsetOffIcon className="headset" name="play" onClick={this.mute} fontSize='large' />}

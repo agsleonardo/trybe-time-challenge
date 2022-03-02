@@ -46,7 +46,7 @@ const TimerSlider = styled(Slider)({
 export default class SliderTool extends Component {
   
   render() {
-    const { onChange, name } =   this.props;
+    const { onChange, name, pause } =   this.props;
     return (
         <TimerSlider
         name={name}
@@ -56,6 +56,7 @@ export default class SliderTool extends Component {
         min={0}
         max={59}
         onChange={onChange}
+        disabled={!pause}
       />
     )
   }
